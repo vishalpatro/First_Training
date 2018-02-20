@@ -1,0 +1,100 @@
+//Painting.java
+
+package com.sap.prototype123;
+
+import java.awt.Paint;
+
+//overriding/overloading(Dynamic loading)/cloning all r ways of prototyping
+
+//-----------------------------------------------------
+
+interface Shape {
+	public void draw();
+
+}
+
+// -----------------------------------------------------
+
+class Line implements Shape {
+	public void draw() {
+		System.out.println("Line");
+	}
+}
+
+class Square implements Shape {
+	@Override
+	public void draw() {
+		// TODO Auto-generated method stub
+		System.out.println("square");
+	}
+}
+
+class Circle implements Shape {
+
+	@Override
+	public void draw() {
+		// TODO Auto-generated method stub
+		System.out.println("circle");
+	}
+
+}
+
+// -----------------------------------------------------
+
+class Big implements Cloneable {
+	private String hi;
+
+	public Big(String hi) {
+		this.hi = hi;
+		System.out.println("constructor");
+	}
+
+	public String getHi() {
+		return hi;
+	}
+
+	public void setHi(String hi) {
+		this.hi = hi;
+	}
+
+	@Override
+	protected Big clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		return (Big) super.clone();
+	}
+}
+
+// -----------------------------------------------------
+public class Painting {
+
+	public static void main(String[] args) throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+
+		Shape shape = new Line();
+		Shape shape2 = new Circle();
+		Shape shape3 = new Square();
+		paint(shape);
+		paint(shape2);
+		paint(shape3);
+
+		Big b = new Big("12345");
+		System.out.println(b.getHi());
+		b.setHi("65478");
+		System.out.println(b.getHi());
+
+		Big b2 = (Big) b.clone();
+		System.out.println(b2.getHi());
+
+	}
+
+	static void paint(Shape s) {
+		if (s instanceof Line) {
+			s.draw();
+		} else if (s instanceof Square) {
+			s.draw();
+		} else if (s instanceof Circle) {
+			s.draw();
+		}
+	}
+
+}
