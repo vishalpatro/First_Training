@@ -1,0 +1,63 @@
+//PMService.java
+
+
+package com.sap.proxy;
+
+//object must have a single responsibility
+//it should not be complex
+
+interface Service {
+	String getService();
+}
+
+class PrimeMinister implements Service {
+
+	@Override
+	public String getService() {
+		// TODO Auto-generated method stub
+		return "service from PM";
+	}
+
+}
+
+class PrimeMinisterProxy implements Service {
+
+	PrimeMinister minister = new PrimeMinister();
+
+	@Override
+	public String getService() {
+
+		// TODO Auto-generated method stub
+		// verify public needs
+		System.out.println("proxy verifying...... public needs before pm approves......");
+		return minister.getService();
+
+	}
+
+}
+
+class Public {
+	public Service service;
+
+	public void setService(Service service) {
+		this.service = service;
+	}
+
+	public void publicNeedBehav() {
+		String serv = service.getService();
+		System.out.println("service from pm:" + serv);
+	}
+}
+
+public class PMService {
+
+	public static void main(String[] args) {
+
+		Service proxy = new PrimeMinisterProxy();
+		Public public1 = new Public();
+		public1.setService(proxy);
+		public1.publicNeedBehav();
+
+	}
+
+}
